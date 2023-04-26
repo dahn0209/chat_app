@@ -12,6 +12,7 @@ jwtSecret=process.env.JWT_SECRET;
 
 
 const app=express();
+app.use(express.json());
 app.use(cors({
     credentials:true,
     origin: process.env.CLIENT_URL,
@@ -24,7 +25,7 @@ app.get('/test',(req,res)=>{
 
 
 app.post('/register',async (req,res)=>{
-   const {username,password}=req.body;
+    const {username,password}=req.body;
    try{
     const createdUser=await User.create({username,password});
     jwt.sign({userId:createdUser._id },jwtSecret,{},(err,token)=>{
