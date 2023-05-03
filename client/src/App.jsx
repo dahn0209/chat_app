@@ -1,5 +1,6 @@
 import Register from "./Register";
 import axios from 'axios'
+import { UserContextProvider } from "./userContext";
 
 
 function App() {
@@ -7,7 +8,10 @@ function App() {
   axios.defaults.withCredentials=true;
 
   return (
-    <Register/>
+    <UserContextProvider>
+       <Register/>
+    </UserContextProvider>
+   
   )
 }
 
