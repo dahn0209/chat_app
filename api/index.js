@@ -32,7 +32,7 @@ app.post('/register',async (req,res)=>{
         if(err) throw err;
         res.cookie('token',token).status(201).json({
             id:createdUser._id,
-            username:createdUser.username
+            // username:createdUser.username
             
         })
        });
