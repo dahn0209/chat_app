@@ -3,8 +3,8 @@ const dotenv=require('dotenv')
 const mongoose=require('mongoose');
 const User=require('./models/User');
 const jwt=require('jsonwebtoken');
-const cors=require('cors')
-dotenv.config()
+const cors=require('cors');
+dotenv.config();
 mongoose.connect(process.env.MONGO_URL)////connect to database///
 // console.log(process.env.MONGO_URL)
 jwtSecret=process.env.JWT_SECRET;
@@ -32,6 +32,7 @@ app.post('/register',async (req,res)=>{
         if(err) throw err;
         res.cookie('token',token).status(201).json({
             _id:createdUser._id,
+            username:createdUser.username
             
         })
        });
