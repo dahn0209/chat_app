@@ -27,9 +27,9 @@ app.get('/test',(req,res)=>{
 
 
 app.get('/profile',(req,res)=>{
-    const token=req.cookies?.token;
+    const token=req.cookies.token;
     if(token){
-        jwt.vertify(token,jwtSecret,{},(err,userData)=>{
+        jwt.verify(token,jwtSecret,{},(err,userData)=>{
             if(err) throw err;
             const {id,username}=userData;
             res.json(userData);
