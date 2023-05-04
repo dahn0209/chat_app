@@ -8,7 +8,7 @@ export function UserContextProvider({children}){
     const [id,setId]=useState(null);
     useEffect(()=>{
         axios.get('/profile').then(response=>{
-            console.log('see==>',response.data)
+            console.log('see response from User Context==>',response.data)
         })
 
     }, []);
