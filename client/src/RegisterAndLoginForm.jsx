@@ -2,15 +2,17 @@ import {useState, useContext} from "react";
 import axios from "axios";
 import { UserContext } from "./UserContext";
 
-export default function Register() {
+export default function RegisterAndLoginForm() {
    
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
+    const [isLoginOrRegister,setIsLoginOrRegister]=useState('register');
     const {setUsername:setLoggedInUsername,setId}=useContext(UserContext);
 
-    async function register(ev){
+    async function handleSubmit(ev){
         ev.preventDefault();
-        const {data}=await axios.post('/register',{username,password});
+        const url=isLoginOrRegister==='register'? 'register' : 'login';
+        const {data}=await axios.post(url,{username,password});
         console.log('this is data=>',data)
         setLoggedInUsername(username);
         setId(data.id)
@@ -20,7 +22,7 @@ export default function Register() {
 
     return (
       <div className="bg-blue-50 h-screen flex items-center">
-        <form className="w-64 mx-auto mb-12" onSubmit={register}>
+        <form className="w-64 mx-auto mb-12" onSubmit={handleSubmit}>
             <input value={username} 
                 onChange={ev=>setUsername(ev.target.value)} 
                 type="text" placeholder="username" 
@@ -35,10 +37,30 @@ export default function Register() {
             <button 
                 className="bg-blue-500 text-white block w-full rounded-md p-2"
             >
-                Register
+                {isLoginOrRegister==='register'? 'Register': 'Login'}
             </button>
             <div className="text-center mt-2">
-                Already a member? <a href="">Longin here</a>
+                {isLoginOrRegister==='register' && (
+                    <div>
+                        Already a member?
+                        <button onClick={()=>{
+                            setIsLoginOrRegister('login')
+                        }}>
+                            Login here
+                        </button>
+                    </div>
+                )}
+                   {isLoginOrRegister==='login' && (
+                    <div>
+                        Dont have an account
+                        <button onClick={()=>{
+                            setIsLoginOrRegister('register')
+                        }}>
+                            Register here
+                        </button>
+                    </div>
+                )}
+              
             </div>
 
         </form>
