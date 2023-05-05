@@ -37,6 +37,9 @@ export default function Register() {
             >
                 Register
             </button>
+            <div className="text-center mt-2">
+                Already a member? <a href="">Longin here</a>
+            </div>
 
         </form>
       </div>
